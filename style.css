@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+@font-face {
+	font-family: 'Conso';
+	src: url("conso.woff") format("woff"), url("conso.ttf") format("truetype");
+	font-style: normal;
+	font-stretch: normal;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	padding: 0;
+	background-color: #20262e;
+	color: #cfd0d2;
+	font-family: Conso;
+	font-size: 10pt;
+	line-height: 18px;
+}
+
+table {
+	font-size: 10pt;
+}
+
+.white { color: #cfd0d2; }
+.blue { color: #268de0; }
+.green { color: #68dd8a; }
+.orange { color: #f7af67; }
+.red { color: #e65a63; }
+.violet { color: #b896ed; }
+.brown { color: #465e78; }
+
+.container {
+	display: block;
+	overflow: hidden;
+	padding: 10px;
+}
+
+.ctn-l { float: left; }
+.ctn-r { float: right; }
+.ctn-n { float: none; }
+.ctn-tier { width: 33.33%; }
+.ctn-half { width: 50.00%; }
+.ctn-full{ width: 100.0%; }
+.multi-column { column-count: 3; }
+
+.oneliner {
+	display: inline-block;
+	max-height: 20px;
+	overflow: hidden;
+	float: left;
+	white-space: nowrap;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	background-color: #cfd0d2;
+}

@@ -25,8 +25,8 @@ function genCaptcha() {
 	if(isset($_SESSION['sess_captcha'])) {
 		unset($_SESSION['sess_captcha']);
 	}
-	$imgWidth = 85;
-	$imgHeight = 20;
+	$imgWidth = 100;
+	$imgHeight = 24;
 	$nbrLines = 5;
 	$img = imagecreatetruecolor($imgWidth, $imgHeight);
 	$bg = imagecolorallocate($img, 0, 0, 0);
@@ -60,6 +60,7 @@ function headPage() {
 	printf("<!DOCTYPE html><html lang='fr-FR'><head>");
 	printf("<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>");
 	printf("<title>Test de mots de passe</title>");
+	printf("<link href='style.css' rel='StyleSheet' type='text/css' media='all' />");
 	printf("</head><body>");
 }
 
@@ -71,17 +72,20 @@ function footPage() {
 
 function testForm() {
 	$captcha = genCaptcha();
+	printf("<div class='container ctn-l ctn-half'>");
+	printf("<span class='oneliner brown'>// Test de votre mot de passe -----------------------------------------------------------------------------------------------------------------------------------------------------------</span><br />");
 	printf("<form method='post' id='passwd' action='checkpass.php'>");
 	printf("<table><tr><td>");
 	printf("<input type='password' size='30' maxlength='30' name='pass' id='pass' placeholder='Saisissez votre mot de passe' autocomplete='current-password' required />");
 	printf("</td><td>&nbsp;</td><td>");
 	printf("<img src='data:image/png;base64,%s' alt='captcha'/>", $captcha);
 	printf("</td><td>&nbsp;</td><td>");
-	printf("<input type='text' size='6' maxlength='6' name='captcha' id='captcha' placeholder='Saisir le code' required />");
+	printf("<input type='text' size='10' maxlength='10' name='captcha' id='captcha' placeholder='Saisir le code' required />");
 	printf("</td><td>&nbsp;</td><td>");
 	printf("<input type='submit' value='Testez' />");
 	printf("</td></tr></table>");
 	printf("</form>");
+	printf("<span class='oneliner brown'>// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br /></div>");
 }
 
 
@@ -114,14 +118,18 @@ function displayResult($passwd) {
 		$item = explode(":", $result[$i]);
 		$testPass = $range.$item[0];
 		if (strcmp($passwd, $testPass) == 0) {
-			printf("<pre>Votre mot de passe est apparu %d fois dans les bases de données volées et accessibles sur Internet</pre>", $item[1]);
+			$msg = sprintf("<span class='orange'>Votre mot de passe est apparu %d fois dans les bases de données volées et accessibles sur Internet</span>", $item[1]);
 			$good = false;
 		}
 	}
 	if ($good) {
-		printf("<pre>Votre mot de passe n'apparaît pas dans les bases de données volées et accessibles sur Internet</pre>");
+		$msg = sprintf("<span class='green'>Votre mot de passe n'apparaît pas dans les bases de données volées et accessibles sur Internet</span>");
 	}
-	printf("<a href='https://haveibeenpwned.com/Passwords'>Source</a>");
+	printf("<div class='container ctn-r ctn-half'>");
+	printf("<span class='oneliner brown'>// Résultat -----------------------------------------------------------------------------------------------------------------------------------------------------------</span><br />");
+	printf("%s<br />", $msg);
+	printf("<a class='blue' href='https://haveibeenpwned.com/Passwords'>Source</a>");
+	printf("<span class='oneliner brown'>// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br /></div>");
 }
 
 
